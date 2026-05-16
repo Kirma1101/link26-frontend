@@ -1,10 +1,10 @@
 // src/api/index.ts
-// Flutter auth_api_service, home_api_service, medicine_api_service,
+// Flutter auth_api_service, home_api_service, medicine_api_service
 //         family_api_service, notification_api_service, ai_chat_service 통합
 import { api } from './client';
 import type {
   User, DashboardData, Medication, FamilyMember,
-  NotificationSettings, ChatMessage,
+  NotificationSettings
 } from '@/types';
 
 // ── Auth ──────────────────────────────────────────
