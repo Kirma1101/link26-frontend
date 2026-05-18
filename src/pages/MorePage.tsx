@@ -3,12 +3,10 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { familyApi, settingsApi } from '@/api';
-import { useAuthStore } from '@/store/authStore';
 import { Card, Spinner, Avatar } from '@/components/ui';
 import type { FamilyMember, NotificationSettings } from '@/types';
 
 export default function MorePage() {
-  const { user, logout } = useAuthStore();
   const [panel, setPanel] = useState<'none' | 'family' | 'notifications'>('none');
 
   return (
@@ -23,14 +21,26 @@ export default function MorePage() {
 
       <h2 className="text-2xl font-black text-slate-800 mb-4">더보기</h2>
 
-      {/* 프로필 카드 */}
-      <Card className="flex items-center gap-4 mb-4">
-        <Avatar text={(user?.name?.[0] ?? 'U')} size="lg" />
-        <div>
-          <p className="font-black text-lg text-slate-800">{user?.name ?? '사용자'}</p>
-          <p className="text-sm text-slate-500">{user?.email}</p>
-        </div>
-      </Card>
+     <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-5 mb-4 flex items-center justify-between shadow-md">
+  <div className="flex items-center gap-3">
+    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
+      <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
+        <path d="M12 5v14M5 12l7 7 7-7" />
+      </svg>
+    </div>
+    <div>
+      <p className="font-black text-white text-sm">link26 앱 다운로드</p>
+      <p className="text-xs text-blue-100">Android APK · 최신 버전</p>
+    </div>
+  </div>
+  <a
+    href="/link26.apk"
+    download="link26.apk"
+    className="bg-white text-blue-600 font-black text-sm px-4 py-2 rounded-xl hover:bg-blue-50 transition-colors"
+  >
+    다운로드
+  </a>
+</div>
 
       {/* 메뉴 목록 */}
       <div className="flex flex-col gap-2 mb-4">
@@ -44,13 +54,6 @@ export default function MorePage() {
       {panel === 'family' && <FamilyPanel />}
       {panel === 'notifications' && <NotificationsPanel />}
 
-      {/* 로그아웃 */}
-      <button
-        onClick={() => logout()}
-        className="w-full mt-4 h-12 rounded-2xl border border-slate-200 text-slate-500 font-semibold text-sm"
-      >
-        로그아웃
-      </button>
     </div>
   );
 }
