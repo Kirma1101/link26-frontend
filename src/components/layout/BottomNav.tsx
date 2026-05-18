@@ -1,11 +1,8 @@
 // 상단 네비게이션 바 (데스크톱 웹 스타일)
 import { NavLink } from 'react-router-dom';
-import { useAuthStore } from '@/store/authStore';
 import { clsx } from 'clsx';
 
 export function BottomNav() {
-  const { user, logout } = useAuthStore();
-
   return (
     <header className="fixed top-0 left-0 right-0 bg-white border-b border-slate-200 z-50">
       <div className="w-full px-8 h-28 flex items-center justify-between">
@@ -40,18 +37,9 @@ export function BottomNav() {
           </nav>
         </div>
 
-        {/* 우측 유저 정보 */}
+        {/* 우측 로고 */}
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-sm">
-            {user?.name?.[0] ?? 'U'}
-          </div>
           <img src="/logo.png" alt="link26" className="h-16 w-auto" />
-          <button
-            onClick={() => logout()}
-            className="text-sm text-slate-400 hover:text-slate-600 border border-slate-200 px-4 py-2 rounded-lg"
-          >
-            로그아웃
-          </button>
         </div>
       </div>
     </header>
