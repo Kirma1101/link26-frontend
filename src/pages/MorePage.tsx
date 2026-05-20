@@ -36,7 +36,7 @@ export default function MorePage() {
   const toggle = (p: Panel) => setPanel(prev => prev === p ? 'none' : p);
 
   return (
-    <div className="flex flex-col max-w-4xl mx-auto pb-10">
+    <div className="flex flex-col w-full pb-10 px-8">
       {/* 로고 헤더 */}
       <div className="bg-[#EAF3FF] rounded-2xl p-6 text-center mb-5">
         <p className="text-3xl font-black text-[#1E4E8C] leading-tight">
@@ -347,4 +347,5 @@ const HelpIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" 
 const ComfortIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><rect x={3} y={3} width={18} height={18} rx={2} /><path d="M3 9h18M3 15h18" /></svg>;
 const CompactIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M3 6h18M3 10h18M3 14h18M3 18h18" /></svg>;
 const ResponsiveIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><rect x={2} y={3} width={20} height={14} rx={2} /><path d="M8 21h8M12 17v4" /></svg>;
+
 

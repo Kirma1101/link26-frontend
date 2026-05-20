@@ -9,10 +9,10 @@ export function BottomNav() {
           <img src="/logo.png" alt="link26" className="h-12 w-auto" />
           <nav className="flex items-center gap-1">
             {[
-              { to: '/', label: 'Home' },
-              { to: '/chat', label: 'AI Chat' },
-              { to: '/family', label: 'Family' },
-              { to: '/more', label: 'More' }
+              { to: '/', label: '홈' },
+              { to: '/chat', label: 'AI 채팅' },
+              { to: '/family', label: '가족 계정' },
+              { to: '/more', label: '더보기' }
             ].map(({ to, label }) => (
               <NavLink
                 key={to}
