@@ -34,7 +34,6 @@ function getPadding() {
 function MainLayout() {
   useEffect(() => {
     const fontSize = localStorage.getItem('display_fontSize') || 'medium';
-    const sizeMap: Record<string, string> = { small: '14px', medium: '16px', large: '18px' };
     document.body.setAttribute('data-fontsize', fontSize);
   }, []);
 
@@ -78,4 +77,5 @@ export default function App() {
     </QueryClientProvider>
   );
 }
+
 
