@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { homeApi } from '@/api';
@@ -40,7 +40,7 @@ export default function AllAlarmsPage() {
   const dateLabel = `${selectedDate.getFullYear()}년 ${selectedDate.getMonth() + 1}월 ${selectedDate.getDate()}일 (${['일','월','화','수','목','금','토'][selectedDate.getDay()]})`;
 
   return (
-    <div className="min-h-screen bg-[#F8FAFF] pb-6 max-w-md mx-auto">
+    <div className="min-h-screen bg-[#F8FAFF] pb-6 w-full">
       <div className="flex items-center gap-3 px-5 pt-5 pb-4">
         <button
           onClick={() => navigate(-1)}

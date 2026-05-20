@@ -63,7 +63,7 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-7rem)] max-w-4xl mx-auto">
+    <div className="flex flex-col h-[calc(100vh-5rem)] w-full">
       {/* 헤더 */}
       <div className="bg-[#F8FAFF] border-b border-slate-100 px-5 py-3 flex items-center gap-3">
         <div className="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0">

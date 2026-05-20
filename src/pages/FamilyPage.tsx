@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { familyApi } from '@/api';
 import { Spinner, Avatar } from '@/components/ui';
@@ -24,7 +24,7 @@ export default function FamilyPage() {
   });
 
   return (
-    <div className="py-8 max-w-2xl">
+    <div className="py-8 w-full">
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-3xl font-black text-slate-800">가족 계정</h1>

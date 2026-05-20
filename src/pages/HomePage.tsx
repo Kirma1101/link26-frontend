@@ -31,7 +31,7 @@ export default function HomePage() {
   const completed = alarms.filter(a => a.status === '복용 완료');
 
   return (
-    <div className="py-8 w-full px-12">
+    <div className="py-8 w-full px-12 max-w-none">
       {/* 페이지 헤더 */}
       <div className="flex items-center justify-between mb-8 w-full">
         <div>
@@ -236,3 +236,4 @@ function AddMedicineModal({ onClose }: { onClose: () => void }) {
     </div>
   );
 }
+
