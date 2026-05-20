@@ -1,9 +1,9 @@
 // src/App.tsx
-// Flutter AuthGate + MaterialApp 라우팅을 react-router-dom v6으로 재현
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BottomNav } from '@/components/layout/BottomNav';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useEffect } from 'react';
+
 import HomePage from '@/pages/HomePage';
 import ChatPage from '@/pages/ChatPage';
 import MorePage from '@/pages/MorePage';
@@ -16,10 +16,21 @@ const queryClient = new QueryClient({
   },
 });
 
+// 저장된 표시 설정 초기화
+function initDisplaySettings() {
+  const fontSize = localStorage.getItem('display_fontSize') || 'medium';
+  const layout = localStorage.getItem('display_layout') || 'comfortable';
+  const sizeMap: Record<string, string> = { small: '14px', medium: '16px', large: '18px' };
+  document.body.style.fontSize = sizeMap[fontSize];
+  const maxWidthMap: Record<string, string> = { comfortable: '900px', compact: '700px', responsive: '100%' };
+  document.documentElement.style.setProperty('--app-max-width', maxWidthMap[layout]);
+}
 
-
-// ── 하단 탭 레이아웃 ──
 function MainLayout() {
+  useEffect(() => {
+    initDisplaySettings();
+  }, []);
+
   return (
     <div className="min-h-screen bg-slate-50">
       <BottomNav />
@@ -35,15 +46,15 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
-    <Route element={<MainLayout />}>
-    <Route path="/" element={<HomePage />} />
-    <Route path="/chat" element={<ChatPage />} />
-    <Route path="/more" element={<MorePage />} />
-    <Route path="/family" element={<FamilyPage />} />
-    <Route path="/alarms" element={<AllAlarmsPage />} />
-    </Route>
-    <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+          <Route element={<MainLayout />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/chat" element={<ChatPage />} />
+            <Route path="/more" element={<MorePage />} />
+            <Route path="/family" element={<FamilyPage />} />
+            <Route path="/alarms" element={<AllAlarmsPage />} />
+          </Route>
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
       </BrowserRouter>
     </QueryClientProvider>
   );
