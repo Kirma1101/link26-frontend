@@ -1,4 +1,4 @@
-// src/App.tsx
+﻿// src/App.tsx
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useEffect } from 'react';
@@ -11,29 +11,49 @@ import FamilyPage from '@/pages/FamilyPage';
 import AllAlarmsPage from '@/pages/AllAlarmsPage';
 
 const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: { retry: 1, staleTime: 1000 * 60 },
-  },
+  defaultOptions: { queries: { retry: 1, staleTime: 1000 * 60 } },
 });
 
-function initDisplaySettings() {
-  const fontSize = localStorage.getItem('display_fontSize') || 'medium';
-  const layout = localStorage.getItem('display_layout') || 'comfortable';
-  const sizeMap: Record<string, string> = { small: '14px', medium: '16px', large: '18px' };
-  document.body.style.fontSize = sizeMap[fontSize];
-  const maxWidthMap: Record<string, string> = { comfortable: '900px', compact: '700px', responsive: '100%' };
-  document.documentElement.style.setProperty('--app-max-width', maxWidthMap[layout]);
+function getLayout() {
+  return localStorage.getItem('display_layout') || 'comfortable';
+}
+
+function getMaxWidth() {
+  const layout = getLayout();
+  if (layout === 'responsive') return '100%';
+  if (layout === 'compact') return '700px';
+  return '900px';
+}
+
+function getPadding() {
+  const layout = getLayout();
+  if (layout === 'responsive') return '0 24px';
+  return '0';
 }
 
 function MainLayout() {
   useEffect(() => {
-    initDisplaySettings();
+    const fontSize = localStorage.getItem('display_fontSize') || 'medium';
+    const sizeMap: Record<string, string> = { small: '14px', medium: '16px', large: '18px' };
+    document.body.style.fontSize = sizeMap[fontSize];
   }, []);
+
+  const layout = getLayout();
+  const maxWidth = getMaxWidth();
+  const padding = getPadding();
 
   return (
     <div className="min-h-screen bg-slate-50">
       <BottomNav />
-      <main className="pt-28 px-0 w-full">
+      <main
+        className="pt-28"
+        style={{
+          maxWidth: layout === 'responsive' ? '100%' : maxWidth,
+          margin: layout === 'responsive' ? '0' : '0 auto',
+          padding: padding,
+          width: '100%',
+        }}
+      >
         <Outlet />
       </main>
     </div>
