@@ -45,7 +45,7 @@ function MainLayout() {
     <div className="min-h-screen bg-slate-50">
       <BottomNav />
       <main
-        className="pt-28"
+        className="pt-32"
         style={{
           maxWidth: layout === 'responsive' ? '100%' : maxWidth,
           margin: layout === 'responsive' ? '0' : '0 auto',
@@ -77,5 +77,6 @@ export default function App() {
     </QueryClientProvider>
   );
 }
+
 
 
