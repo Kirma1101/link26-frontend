@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { homeApi, medicinesApi } from '@/api';
@@ -31,7 +31,7 @@ export default function HomePage() {
   const completed = alarms.filter(a => a.status === '복용 완료');
 
   return (
-    <div className="py-8 w-full px-8">
+    <div className="py-8 w-full px-12">
       {/* 페이지 헤더 */}
       <div className="flex items-center justify-between mb-8 w-full">
         <div>
