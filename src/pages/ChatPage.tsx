@@ -1,5 +1,5 @@
-// src/pages/ChatPage.tsx
-// Flutter ai_chat_screen.dart 의 웹 버전
+﻿// src/pages/ChatPage.tsx
+// Flutter ai_chat_screen.dart ????踰꾩쟾
 import { useState, useRef, useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { aiApi } from '@/api';
@@ -18,7 +18,7 @@ export default function ChatPage() {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: newId(), isUser: false, time: fmt(),
-      text: '안녕하세요! AI 건강 도우미입니다.\n약 이름을 입력하거나 궁금한 점을 물어보세요.',
+      text: '?덈뀞?섏꽭?? AI 嫄닿컯 ?꾩슦誘몄엯?덈떎.\n???대쫫???낅젰?섍굅??沅곴툑???먯쓣 臾쇱뼱蹂댁꽭??',
     },
   ]);
   const [input, setInput] = useState('');
@@ -48,10 +48,10 @@ export default function ChatPage() {
     if (!file) return;
     setMessages(prev => [
       ...prev,
-      { id: newId(), isUser: true, time: fmt(), text: '사진을 선택했습니다.' },
+      { id: newId(), isUser: true, time: fmt(), text: '?ъ쭊???좏깮?덉뒿?덈떎.' },
     ]);
-    // 처방전 분석 (텍스트 추출은 추후 OCR API 연결)
-    const { data } = await aiApi.prescription('분석 요청');
+    // 泥섎갑??遺꾩꽍 (?띿뒪??異붿텧? 異뷀썑 OCR API ?곌껐)
+    const { data } = await aiApi.prescription('遺꾩꽍 ?붿껌');
     setMessages(prev => [
       ...prev,
       {
@@ -63,8 +63,8 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-4rem)] max-w-4xl mx-auto">
-      {/* 헤더 */}
+    <div className="flex flex-col h-[calc(100vh-7rem)] max-w-4xl mx-auto">
+      {/* ?ㅻ뜑 */}
       <div className="bg-[#F8FAFF] border-b border-slate-100 px-5 py-3 flex items-center gap-3">
         <div className="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0">
           <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
@@ -72,18 +72,18 @@ export default function ChatPage() {
           </svg>
         </div>
         <div className="flex-1">
-          <p className="font-black text-slate-800 text-sm">AI 건강 도우미</p>
-          <p className="text-xs text-slate-400">약 추천 · 처방전 분석</p>
+          <p className="font-black text-slate-800 text-sm">AI 嫄닿컯 ?꾩슦誘?/p>
+          <p className="text-xs text-slate-400">??異붿쿇 쨌 泥섎갑??遺꾩꽍</p>
         </div>
         <button
-          onClick={() => setMessages([{ id: newId(), isUser: false, time: fmt(), text: '새 대화를 시작합니다.' }])}
+          onClick={() => setMessages([{ id: newId(), isUser: false, time: fmt(), text: '????붾? ?쒖옉?⑸땲??' }])}
           className="text-xs text-blue-600 font-semibold border border-blue-200 px-3 py-1 rounded-full"
         >
-          + 새 대화
+          + ?????
         </button>
       </div>
 
-      {/* 메시지 목록 */}
+      {/* 硫붿떆吏 紐⑸줉 */}
       <div className="flex-1 overflow-y-auto px-4 py-4 flex flex-col gap-3 bg-[#F8FAFF]">
         {messages.map(m => (
           <Bubble key={m.id} msg={m} />
@@ -95,16 +95,16 @@ export default function ChatPage() {
                 <div key={i} className="w-2 h-2 bg-slate-300 rounded-full animate-bounce" style={{ animationDelay: `${i * 0.15}s` }} />
               ))}
             </div>
-            AI 분석 중...
+            AI 遺꾩꽍 以?..
           </div>
         )}
         <div ref={bottomRef} />
       </div>
 
-      {/* 입력창 */}
+      {/* ?낅젰李?*/}
       <div className="bg-white border-t border-slate-100 px-4 py-3 pb-20">
         <div className="flex items-center gap-2">
-          {/* 이미지 업로드 버튼 */}
+          {/* ?대?吏 ?낅줈??踰꾪듉 */}
           <label className="w-10 h-10 rounded-full bg-purple-50 border border-purple-200 flex items-center justify-center cursor-pointer flex-shrink-0">
             <svg className="w-5 h-5 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
               <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/>
@@ -117,7 +117,7 @@ export default function ChatPage() {
             value={input}
             onChange={e => setInput(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), send())}
-            placeholder="약 이름을 입력하세요..."
+            placeholder="???대쫫???낅젰?섏꽭??.."
             className="flex-1 h-11 rounded-3xl border border-slate-200 bg-white px-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
           />
 
@@ -152,3 +152,4 @@ function Bubble({ msg }: { msg: ChatMessage }) {
     </div>
   );
 }
+
