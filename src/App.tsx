@@ -22,7 +22,7 @@ function MainLayout() {
   return (
     <div className="min-h-screen bg-slate-50">
       <BottomNav />
-      <main className="pt-32 px-8 w-full max-w-6xl mx-auto">
+      <main className="pt-28 w-full">
         <Outlet />
       </main>
     </div>
@@ -47,3 +47,4 @@ export default function App() {
     </QueryClientProvider>
   );
 }
+
