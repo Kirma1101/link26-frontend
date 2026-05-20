@@ -1,5 +1,5 @@
-// src/pages/MorePage.tsx
-import { useState, useEffect } from 'react';
+﻿// src/pages/MorePage.tsx
+import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { familyApi, settingsApi } from '@/api';
 import { Card, Spinner, Avatar } from '@/components/ui';
@@ -347,3 +347,4 @@ const HelpIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" 
 const ComfortIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><rect x={3} y={3} width={18} height={18} rx={2} /><path d="M3 9h18M3 15h18" /></svg>;
 const CompactIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M3 6h18M3 10h18M3 14h18M3 18h18" /></svg>;
 const ResponsiveIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><rect x={2} y={3} width={20} height={14} rx={2} /><path d="M8 21h8M12 17v4" /></svg>;
+

@@ -1,8 +1,8 @@
 // src/App.tsx
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useEffect } from 'react';
 import { BottomNav } from '@/components/layout/BottomNav';
-import { Outlet, useEffect } from 'react';
 
 import HomePage from '@/pages/HomePage';
 import ChatPage from '@/pages/ChatPage';
@@ -16,7 +16,6 @@ const queryClient = new QueryClient({
   },
 });
 
-// 저장된 표시 설정 초기화
 function initDisplaySettings() {
   const fontSize = localStorage.getItem('display_fontSize') || 'medium';
   const layout = localStorage.getItem('display_layout') || 'comfortable';
