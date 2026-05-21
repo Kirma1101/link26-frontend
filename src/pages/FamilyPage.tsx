@@ -24,7 +24,7 @@ export default function FamilyPage() {
   });
 
   return (
-    <div className="py-8 w-full">
+    <div className="py-8 w-full px-4 md:px-8">
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-3xl font-black text-slate-800">가족 계정</h1>
