@@ -16,6 +16,12 @@ export default function HomePage() {
     queryFn: () => homeApi.dashboard().then(r => r.data),
   });
 
+  const addMed = useMutation({
+  mutationFn: (data: { name: string; dose: string; frequency: string; time: string }) =>
+    medicinesApi.add(data),
+  onSuccess: () => qc.invalidateQueries({ queryKey: ['dashboard'] }),
+});
+
   const deleteMed = useMutation({
     mutationFn: (id: string) => medicinesApi.remove(id),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['dashboard'] }),
@@ -129,7 +135,7 @@ function StatCard({ label, value, color }: { label: string; value: string; color
   );
 }
 
-function AlarmCard({ alarm }: { alarm: Alarm }) {
+function AlarmCard({ alarm, onComplete }: { alarm: Alarm; onComplete: (id: string) => void }) {
   return (
     <Card>
       <div className="flex items-center gap-4">
@@ -231,6 +237,7 @@ function AddMedicineModal({ onClose }: { onClose: () => void }) {
     </div>
   );
 }
+
 
 
 
