@@ -85,11 +85,6 @@ export default function HomePage() {
               </div>
             </section>
           )}
-
-          {/* 광고 배너 */}
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100">
-            <p className="font-bold text-slate-600">광고 배너 영역 · 간단 보조 식품 추천</p>
-          </div>
         </div>
 
         {/* 우측: 약 목록 (1/3) */}
@@ -236,4 +231,5 @@ function AddMedicineModal({ onClose }: { onClose: () => void }) {
     </div>
   );
 }
+
 
