@@ -31,14 +31,14 @@ export default function HomePage() {
   const completed = alarms.filter(a => a.status === '복용 완료');
 
   return (
-    <div className="py-8 w-full px-12 max-w-none">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-4 sm:py-8 overflow-x-hidden">
       {/* 페이지 헤더 */}
-      <div className="flex items-center justify-between mb-8 w-full">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6 md:mb-8 w-full">
         <div>
-          <h1 className="text-3xl font-black text-slate-800">건강한 하루를 시작하세요</h1>
+          <h1 className="text-3xl md:text-3xl font-black text-slate-800 leading-tight">건강한 하루를 시작하세요</h1>
           <p className="text-slate-500 mt-1">오늘의 복약 현황을 확인하세요</p>
         </div>
-        <div className="relative w-80">
+        <div className="relative w-full md:w-80">
           <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
             <circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/>
           </svg>
@@ -52,16 +52,16 @@ export default function HomePage() {
       </div>
 
       {/* 통계 카드 3개 */}
-      <div className="grid grid-cols-3 gap-6 mb-8 w-full">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 mb-8 w-full">
         <StatCard label="오늘 복용" value={`${data?.completedCount ?? 0}/${data?.totalCount ?? 0}`} color="blue" />
         <StatCard label="등록된 약" value={`${data?.medications.length ?? 0}개`} color="green" />
         <StatCard label="예정 알람" value={`${pending.length}건`} color="orange" />
       </div>
 
       {/* 2컬럼 레이아웃 */}
-      <div className="grid grid-cols-3 gap-8 w-full">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 w-full">
         {/* 좌측: 알람 (2/3) */}
-        <div className="col-span-2 flex flex-col gap-6">
+        <div className="lg:col-span-2 flex flex-col gap-6">
           {/* 오늘의 알람 */}
           {pending.length > 0 && (
             <section>
@@ -78,7 +78,7 @@ export default function HomePage() {
           {completed.length > 0 && (
             <section>
               <SectionHeader title="복용 완료" />
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {completed.map(alarm => (
                   <CompletedTile key={alarm.id} alarm={alarm} />
                 ))}
@@ -122,9 +122,9 @@ function StatCard({ label, value, color }: { label: string; value: string; color
     orange: 'from-orange-400 to-orange-500',
   };
   return (
-    <div className={`bg-gradient-to-br ${colors[color]} rounded-2xl p-6 text-white`}>
+    <div className={`bg-gradient-to-br ${colors[color]} rounded-2xl p-5 md:p-6 text-white`}>
       <p className="text-sm font-semibold opacity-80 mb-2">{label}</p>
-      <p className="text-4xl font-black">{value}</p>
+      <p className="text-3xl md:text-4xl font-black">{value}</p>
     </div>
   );
 }
