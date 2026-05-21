@@ -32,8 +32,9 @@ export function BottomNav() {
             ))}
           </nav>
         </div>
-        <img src="/logo.png" alt="link26" className="h-10 w-auto" />
+        
       </div>
     </header>
   );
 }
+
