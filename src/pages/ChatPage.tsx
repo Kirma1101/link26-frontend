@@ -152,3 +152,4 @@ function Bubble({ msg }: { msg: ChatMessage }) {
     </div>
   );
 }
+
