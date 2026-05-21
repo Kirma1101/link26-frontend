@@ -1,4 +1,4 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -8,15 +8,17 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
   }
 
-  /* 모바일 앱처럼 최대 너비 고정 */
   #root {
-    @apply max-w-md mx-auto relative;
     min-height: 100dvh;
+    width: 100%;
   }
 }
 
 @layer utilities {
-  /* 바운스 애니메이션 딜레이 */
   .animation-delay-150 { animation-delay: 0.15s; }
   .animation-delay-300 { animation-delay: 0.30s; }
 }
+
+body[data-fontsize="small"] * { font-size: 14px !important; }
+body[data-fontsize="medium"] * { font-size: 16px !important; }
+body[data-fontsize="large"] * { font-size: 18px !important; }
