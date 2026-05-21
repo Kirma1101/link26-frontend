@@ -63,7 +63,7 @@ export default function MorePage() {
           </div>
         </div>
         <a href="/link26.apk" download="link26.apk"
-          className="bg-white text-blue-600 font-black text-sm px-4 py-2 rounded-xl hover:bg-blue-50 transition-colors">
+          className="bg-white text-blue-600 font-black text-sm px-3 py-2 rounded-xl hover:bg-blue-50 transition-colors whitespace-nowrap">
           다운로드
         </a>
       </div>
@@ -350,6 +350,7 @@ const HelpIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" 
 const ComfortIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><rect x={3} y={3} width={18} height={18} rx={2} /><path d="M3 9h18M3 15h18" /></svg>;
 const CompactIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M3 6h18M3 10h18M3 14h18M3 18h18" /></svg>;
 const ResponsiveIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><rect x={2} y={3} width={20} height={14} rx={2} /><path d="M8 21h8M12 17v4" /></svg>;
+
 
 
 
