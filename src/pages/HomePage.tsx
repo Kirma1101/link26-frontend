@@ -2,6 +2,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { homeApi, medicinesApi } from '@/api';
+import { api } from '@/api/client';
 import { Card, SectionHeader, Spinner, Badge } from '@/components/ui';
 import type { Alarm, Medication } from '@/types';
 
@@ -16,16 +17,16 @@ export default function HomePage() {
     queryFn: () => homeApi.dashboard().then(r => r.data),
   });
 
-  const addMed = useMutation({
-  mutationFn: (data: { name: string; dose: string; frequency: string; time: string }) =>
-    medicinesApi.add(data),
-  onSuccess: () => qc.invalidateQueries({ queryKey: ['dashboard'] }),
-});
 
   const deleteMed = useMutation({
     mutationFn: (id: string) => medicinesApi.remove(id),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['dashboard'] }),
   });
+
+  const completeAlarm = useMutation({
+  mutationFn: (id: string) => api.patch(`/alarms/${id}/complete`),
+  onSuccess: () => qc.invalidateQueries({ queryKey: ['dashboard'] }),
+});
 
   if (isLoading) return <Spinner className="h-96" />;
 
@@ -74,7 +75,7 @@ export default function HomePage() {
               <SectionHeader title="오늘의 알림" action="전체보기" onAction={() => navigate('/alarms')} />
               <div className="flex flex-col gap-3">
                 {pending.map(alarm => (
-                  <AlarmCard key={alarm.id} alarm={alarm} />
+                  <AlarmCard key={alarm.id} alarm={alarm} onComplete={(id) => completeAlarm.mutate(id)} />
                 ))}
               </div>
             </section>
@@ -151,7 +152,7 @@ function AlarmCard({ alarm, onComplete }: { alarm: Alarm; onComplete: (id: strin
           </div>
           <p className="text-sm text-slate-500">{alarm.medicineName} {alarm.dose}</p>
         </div>
-        <button className="bg-slate-900 text-white text-sm font-bold px-4 py-2 rounded-xl hover:bg-slate-700 transition-colors">
+        <button onClick={() => onComplete(alarm.id)} className="bg-slate-900 text-white text-sm font-bold px-4 py-2 rounded-xl hover:bg-slate-700 transition-colors">
           복용 완료
         </button>
       </div>
