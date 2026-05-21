@@ -30,8 +30,8 @@ export function BottomNav() {
       </header>
 
       {/* 모바일 상단 로고바 */}
-      <header className="flex md:hidden fixed top-0 left-0 right-0 bg-white border-b border-slate-200 z-50 h-20 items-center px-4">
-        <img src="/logo.png" alt="link26" className="h-16 w-auto" />
+      <header className="flex md:hidden fixed top-0 left-0 right-0 bg-white border-b border-slate-200 z-50 h-16 items-center px-4">
+        <img src="/logo.png" alt="link26" className="h-12 w-auto" />
       </header>
 
       {/* 모바일 하단 탭바 */}
@@ -57,6 +57,7 @@ export function BottomNav() {
     </>
   );
 }
+
 
 
 
