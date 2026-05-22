@@ -62,7 +62,7 @@ export default function HomePage() {
       </div>
 
       {/* 통계 카드 3개 */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 mb-8 w-full">
+      <div className="grid grid-cols-2 gap-4 md:gap-6 mb-8 w-full">
         <StatCard label="오늘 복용" value={`${data?.completedCount ?? 0}/${data?.totalCount ?? 0}`} color="blue" />
         <StatCard label="등록된 약" value={`${data?.medications.length ?? 0}개`} color="green" />
         <StatCard label="예정 알람" value={`${pending.length}건`} color="orange" />
@@ -134,8 +134,8 @@ function StatCard({ label, value, color }: { label: string; value: string; color
   };
   return (
     <div className={`bg-gradient-to-br ${colors[color]} rounded-2xl p-5 md:p-6 text-white`}>
-      <p className="text-sm font-semibold opacity-80 mb-2">{label}</p>
-      <p className="text-3xl md:text-4xl font-black">{value}</p>
+      <p className="text-base font-semibold opacity-80 mb-2">{label}</p>
+      <p className="text-4xl md:text-5xl font-black">{value}</p>
     </div>
   );
 }
@@ -242,6 +242,7 @@ function AddMedicineModal({ onClose }: { onClose: () => void }) {
     </div>
   );
 }
+
 
 
 

@@ -17,8 +17,8 @@ const queryClient = new QueryClient({
 
 function Sidebar() {
   return (
-    <aside className="hidden md:flex w-52 bg-white border-r border-slate-100 flex-col py-4 px-3 flex-shrink-0">
-      <div className="text-xs font-semibold text-slate-400 px-3 mb-2 tracking-wider uppercase">메뉴</div>
+    <aside className="hidden md:flex w-64 bg-white border-r border-slate-100 flex-col py-6 px-4 flex-shrink-0">
+      <div className="text-sm font-bold text-slate-400 px-3 mb-3 tracking-wider uppercase">메뉴</div>
       {[
         { to: '/', label: '홈', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
         { to: '/chat', label: 'AI 채팅', icon: 'M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z' },
@@ -27,7 +27,7 @@ function Sidebar() {
       ].map(({ to, label, icon }) => (
         <NavLink key={to} to={to} end={to === '/'}
           className={({ isActive }) => clsx(
-            'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors mb-0.5',
+            'flex items-center gap-3 px-4 py-3 rounded-xl text-base font-semibold transition-colors mb-1',
             isActive ? 'bg-[#EAF3FF] text-[#1E6FBF] font-semibold' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-700'
           )}>
           <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
@@ -79,6 +79,7 @@ export default function App() {
     </QueryClientProvider>
   );
 }
+
 
 
 
