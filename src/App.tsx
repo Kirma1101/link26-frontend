@@ -42,9 +42,11 @@ function Sidebar() {
 
 function MainLayout() {
   useEffect(() => {
-    const fontSize = localStorage.getItem('display_fontSize') || 'medium';
-    document.body.setAttribute('data-fontsize', fontSize);
-  }, []);
+  const size = localStorage.getItem('display_fontSize_size');
+  if (size) {
+    document.body.style.fontSize = size + 'px';
+  }
+}, []);
 
   return (
     <div className="min-h-screen bg-[#F0F4F8] flex flex-col">
@@ -77,4 +79,5 @@ export default function App() {
     </QueryClientProvider>
   );
 }
+
 
