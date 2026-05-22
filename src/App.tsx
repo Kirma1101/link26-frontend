@@ -44,7 +44,7 @@ function MainLayout() {
   useEffect(() => {
   const size = localStorage.getItem('display_fontSize_size');
   if (size) {
-    document.body.style.fontSize = size + 'px';
+    document.documentElement.style.fontSize = size + 'px';
   }
 }, []);
 
@@ -79,6 +79,7 @@ export default function App() {
     </QueryClientProvider>
   );
 }
+
 
 
 

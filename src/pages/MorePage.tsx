@@ -193,7 +193,7 @@ function DisplayPanel() {
   const [saved, setSaved] = useState(false);
 
   const handleSave = () => {
-    document.body.style.fontSize = size + 'px';
+    document.documentElement.style.fontSize = size + 'px';
     localStorage.setItem('display_fontSize_size', String(size));
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
@@ -304,6 +304,7 @@ const PeopleIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none
 const BellIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" /></svg>;
 const TextIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M4 6h16M4 12h16M4 18h7" /></svg>;
 const HelpIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><circle cx={12} cy={12} r={10} /><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01" /></svg>;
+
 
 
 
