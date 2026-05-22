@@ -188,47 +188,48 @@ function NotificationsPanel() {
 }
 
 function DisplayPanel() {
-  const [fontSize, setFontSize] = useState<FontSize>(
-    (localStorage.getItem('display_fontSize') as FontSize) || 'medium'
-  );
+  const saved_size = localStorage.getItem('display_fontSize_size');
+  const [size, setSize] = useState<number>(saved_size ? Number(saved_size) : 16);
   const [saved, setSaved] = useState(false);
 
   const handleSave = () => {
-    applyDisplaySettings(fontSize);
+    document.body.style.fontSize = size + 'px';
+    localStorage.setItem('display_fontSize_size', String(size));
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   };
 
-  const fontSizes: { value: FontSize; label: string }[] = [
-    { value: 'small', label: '작게 (14px)' },
-    { value: 'medium', label: '보통 (16px)' },
-    { value: 'large', label: '크게 (18px)' },
-  ];
   return (
     <Card className="mb-4">
       <h3 className="font-black text-slate-700 mb-4">표시 설정</h3>
-
-      {/* 글자 크기 */}
       <div className="mb-5">
-        <p className="text-sm font-bold text-slate-600 mb-2">글자 크기</p>
-        <div className="flex gap-2">
-          {fontSizes.map(({ value, label }) => (
-            <button key={value} onClick={() => setFontSize(value)}
-              className={`flex-1 py-3 rounded-xl border-2 transition-all ${fontSize === value ? 'border-blue-500 bg-blue-50' : 'border-slate-200 bg-white'}`}>
-              <span className={`text-sm font-semibold ${fontSize === value ? 'text-blue-700' : 'text-slate-600'}`}>{label}</span>
-            </button>
-          ))}
+        <div className="flex items-center justify-between mb-2">
+          <p className="text-sm font-bold text-slate-600">글자 크기</p>
+          <span className="text-sm font-bold text-blue-600">{size}px</span>
         </div>
-        {/* 미리보기 */}
+        <input
+          type="range"
+          min={12}
+          max={24}
+          step={1}
+          value={size}
+          onChange={e => setSize(Number(e.target.value))}
+          className="w-full accent-blue-600"
+        />
+        <div className="flex justify-between text-xs text-slate-400 mt-1">
+          <span>작게 (12px)</span>
+          <span>기본 (16px)</span>
+          <span>크게 (24px)</span>
+        </div>
         <div className="mt-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
-          <p style={{ fontSize: fontSize === 'small' ? '14px' : fontSize === 'large' ? '18px' : '16px' }} className="text-slate-700">
+          <p style={{ fontSize: size + 'px' }} className="text-slate-700">
             미리보기: 건강한 하루를 시작하세요
           </p>
         </div>
       </div>
       <button onClick={handleSave}
         className={`w-full h-10 rounded-xl font-bold text-sm transition-colors ${saved ? 'bg-green-500 text-white' : 'bg-blue-600 text-white hover:bg-blue-700'}`}>
-        {saved ? '✓ 저장되었습니다!' : '저장'}
+        {saved ? '저장되었습니다!' : '저장'}
       </button>
     </Card>
   );
