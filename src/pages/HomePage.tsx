@@ -1,4 +1,5 @@
 ﻿import { useState } from 'react';
+import { DrugSearchModal } from '@/components/DrugSearchModal';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { homeApi, medicinesApi } from '@/api';
@@ -11,6 +12,7 @@ export default function HomePage() {
   const navigate = useNavigate();
   const [search, setSearch] = useState('');
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showDrugSearch, setShowDrugSearch] = useState(false);
 
   const { data, isLoading } = useQuery({
     queryKey: ['dashboard'],
@@ -52,6 +54,7 @@ export default function HomePage() {
           <input
             value={search}
             onChange={e => setSearch(e.target.value)}
+            onClick={() => setShowDrugSearch(true)}
             placeholder="약 이름, 성분 검색"
             className="w-full h-10 rounded-xl border border-slate-200 bg-white pl-9 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
           />
@@ -118,6 +121,7 @@ export default function HomePage() {
       </div>
 
       {showAddModal && <AddMedicineModal onClose={() => setShowAddModal(false)} />}
+      {showDrugSearch && <DrugSearchModal onClose={() => setShowDrugSearch(false)} />}
     </div>
   );
 }
@@ -238,6 +242,7 @@ function AddMedicineModal({ onClose }: { onClose: () => void }) {
     </div>
   );
 }
+
 
 
 
