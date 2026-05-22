@@ -65,8 +65,8 @@ export default function HomePage() {
       {/* 통계 카드 3개 */}
       <div className="grid grid-cols-2 gap-4 md:gap-6 mb-8 w-full">
         <StatCard label={t('home_today')} value={`${data?.completedCount ?? 0}/${data?.totalCount ?? 0}`} color="blue" />
-        <StatCard label={t('home_registered')} value={`${data?.medications.length ?? 0}개`} color="green" />
-        <StatCard label={t('home_alarms')} value={`${pending.length}건`} color="orange" />
+        <StatCard label={t('home_registered')} value={t('home_reg_value').replace('{n}', String(data?.medications.length ?? 0))} color="green" />
+        <StatCard label={t('home_alarms')} value={t('home_alarm_value').replace('{n}', String(pending.length))} color="orange" />
       </div>
 
       {/* 2컬럼 레이아웃 */}

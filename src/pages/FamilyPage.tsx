@@ -35,7 +35,7 @@ export default function FamilyPage() {
           onClick={() => setShowAdd(v => !v)}
           className="bg-[#0B6BFF] text-white font-bold px-5 py-2.5 rounded-xl hover:bg-blue-700 transition-colors"
         >
-          + 구성원 추가
+          {t('family_add')}
         </button>
       </div>
 
@@ -85,7 +85,7 @@ export default function FamilyPage() {
             onClick={() => setShowAdd(true)}
             className="text-blue-600 font-semibold text-sm"
           >
-            + 첫 번째 구성원 추가하기
+            {t('family_add')}
           </button>
         </div>
       ) : (

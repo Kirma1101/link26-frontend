@@ -26,6 +26,8 @@ export const translations = {
     home_add: '+ 추가',
     home_no_meds: '등록된 약이 없습니다.',
     home_add_med: '+ 약 추가하기',
+    home_reg_value: '{n}개',
+    home_alarm_value: '{n}건',
     home_today_alarm: '오늘의 알림',
     home_view_all: '전체보기',
     home_done: '복용 완료',
@@ -101,6 +103,8 @@ export const translations = {
     home_add: '+ Add',
     home_no_meds: 'No medications registered.',
     home_add_med: '+ Add Medication',
+    home_reg_value: '{n}',
+    home_alarm_value: '{n}',
     home_today_alarm: 'Today\'s Alarms',
     home_view_all: 'View All',
     home_done: 'Take',
@@ -162,3 +166,4 @@ export function t(key: keyof typeof translations['ko']): string {
   const lang = getLang();
   return translations[lang][key] ?? translations['ko'][key] ?? key;
 }
+

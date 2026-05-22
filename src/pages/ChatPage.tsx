@@ -95,7 +95,7 @@ export default function ChatPage() {
           onClick={() => setMessages([{ id: newId(), isUser: false, time: fmt(), text: t('chat_welcome') }])}
           className="text-xs text-blue-600 font-semibold border border-blue-200 px-3 py-1 rounded-full"
         >
-          + 새 대화
+          {t('chat_new')}
         </button>
       </div>
 
