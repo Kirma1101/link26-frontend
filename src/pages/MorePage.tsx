@@ -6,7 +6,7 @@ import { familyApi, settingsApi } from '@/api';
 import { Card, Spinner, Avatar } from '@/components/ui';
 import type { FamilyMember, NotificationSettings } from '@/types';
 
-type Panel = 'none' | 'family' | 'notifications' | 'display' | 'help';
+type Panel = 'none' | 'family' | 'notifications' | 'display' | 'help' | 'language';
 type FontSize = 'small' | 'medium' | 'large';
 
 function applyDisplaySettings(fontSize: FontSize) {
@@ -64,6 +64,7 @@ export default function MorePage() {
         <MenuItem icon={<PeopleIcon />} title="가족 계정" subtitle="가족 구성원 관리" onTap={() => toggle('family')} active={panel === 'family'} />
         <MenuItem icon={<BellIcon />} title="알림" subtitle="복약 알림 확인" onTap={() => navigate('/alarms')} active={false} />
         <MenuItem icon={<BellIcon />} title="알림 설정" subtitle="전화/푸시 알림 설정" onTap={() => toggle('notifications')} active={panel === 'notifications'} />
+        <MenuItem icon={<LanguageIcon />} title="언어 설정" subtitle="한국어 / English" onTap={() => toggle('language')} active={panel === 'language'} />
         <MenuItem icon={<TextIcon />} title="표시 설정" subtitle="글자 크기, 화면 구성" onTap={() => toggle('display')} active={panel === 'display'} />
         <MenuItem icon={<HelpIcon />} title="도움말" subtitle="사용 가이드 및 FAQ" onTap={() => toggle('help')} active={panel === 'help'} />
       </div>
@@ -71,6 +72,7 @@ export default function MorePage() {
       {panel === 'family' && <FamilyPanel />}
       {panel === 'notifications' && <NotificationsPanel />}
       {panel === 'display' && <DisplayPanel />}
+      {panel === 'language' && <LanguagePanel />}
       {panel === 'help' && <HelpPanel />}
     </div>
   );
@@ -300,11 +302,51 @@ function FaqItem({ q, a }: { q: string; a: string }) {
   );
 }
 
+function LanguagePanel() {
+  const [lang, setLang] = useState<'ko' | 'en'>(
+    (localStorage.getItem('app_language') as 'ko' | 'en') || 'ko'
+  );
+  const [saved, setSaved] = useState(false);
+
+  const handleSave = () => {
+    localStorage.setItem('app_language', lang);
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2000);
+  };
+
+  return (
+    <Card className="mb-4">
+      <h3 className="font-black text-slate-700 mb-4">언어 설정</h3>
+      <div className="flex flex-col gap-2 mb-4">
+        {([['ko', '한국어', '기본 언어'], ['en', 'English', 'Default language']] as const).map(([value, label, desc]) => (
+          <button key={value} onClick={() => setLang(value)}
+            className={`flex items-center gap-3 p-3 rounded-xl border-2 transition-all text-left ${lang === value ? 'border-blue-500 bg-blue-50' : 'border-slate-200 bg-white'}`}>
+            <span className="text-2xl">{value === 'ko' ? '🇰🇷' : '🇺🇸'}</span>
+            <div>
+              <p className={`text-sm font-bold ${lang === value ? 'text-blue-700' : 'text-slate-700'}`}>{label}</p>
+              <p className="text-xs text-slate-400">{desc}</p>
+            </div>
+            {lang === value && (
+              <svg className="w-5 h-5 text-blue-500 ml-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
+                <path d="M20 6L9 17l-5-5" />
+              </svg>
+            )}
+          </button>
+        ))}
+      </div>
+      <button onClick={handleSave}
+        className={`w-full h-10 rounded-xl font-bold text-sm transition-colors ${saved ? 'bg-green-500 text-white' : 'bg-blue-600 text-white hover:bg-blue-700'}`}>
+        {saved ? '저장되었습니다!' : '저장'}
+      </button>
+    </Card>
+  );
+}
+
 const PeopleIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx={9} cy={7} r={4} /><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" /></svg>;
 const BellIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" /></svg>;
 const TextIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M4 6h16M4 12h16M4 18h7" /></svg>;
 const HelpIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><circle cx={12} cy={12} r={10} /><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01" /></svg>;
-
+const LanguageIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><circle cx={12} cy={12} r={10}/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>;
 
 
 
