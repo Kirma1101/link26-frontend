@@ -45,7 +45,7 @@ export default function HomePage() {
       {/* 페이지 헤더 */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6 md:mb-8 w-full">
         <div>
-          <h1 className="text-3xl md:text-3xl font-black text-slate-800 leading-tight">건강한 하루를 시작하세요</h1>
+          <h1 className="text-3xl md:text-3xl font-black text-slate-800 leading-tight">{t('home_title')}</h1>
           <p className="text-slate-500 mt-1">{t('home_subtitle')}</p>
         </div>
         <div className="relative w-full md:w-80">
@@ -243,6 +243,7 @@ function AddMedicineModal({ onClose }: { onClose: () => void }) {
     </div>
   );
 }
+
 
 
 
