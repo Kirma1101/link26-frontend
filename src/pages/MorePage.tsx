@@ -8,28 +8,19 @@ import type { FamilyMember, NotificationSettings } from '@/types';
 
 type Panel = 'none' | 'family' | 'notifications' | 'display' | 'help';
 type FontSize = 'small' | 'medium' | 'large';
-type Layout = 'comfortable' | 'compact' | 'responsive';
 
-// 전역 표시 설정 적용 함수
-function applyDisplaySettings(fontSize: FontSize, layout: Layout) {
+function applyDisplaySettings(fontSize: FontSize) {
   const root = document.documentElement;
-  // 글자 크기
   const sizeMap = { small: '14px', medium: '16px', large: '18px' };
   root.style.setProperty('--app-font-size', sizeMap[fontSize]);
   document.body.style.fontSize = sizeMap[fontSize];
-  // 레이아웃
-  const maxWidthMap = { comfortable: '900px', compact: '700px', responsive: '100%' };
-  root.style.setProperty('--app-max-width', maxWidthMap[layout]);
-  // localStorage 저장
   localStorage.setItem('display_fontSize', fontSize);
-  localStorage.setItem('display_layout', layout);
 }
 
 // 앱 시작 시 저장된 설정 불러오기
 export function initDisplaySettings() {
   const fontSize = (localStorage.getItem('display_fontSize') as FontSize) || 'medium';
-  const layout = (localStorage.getItem('display_layout') as Layout) || 'comfortable';
-  applyDisplaySettings(fontSize, layout);
+  applyDisplaySettings(fontSize);
 }
 
 export default function MorePage() {
@@ -200,13 +191,10 @@ function DisplayPanel() {
   const [fontSize, setFontSize] = useState<FontSize>(
     (localStorage.getItem('display_fontSize') as FontSize) || 'medium'
   );
-  const [layout, setLayout] = useState<Layout>(
-    (localStorage.getItem('display_layout') as Layout) || 'comfortable'
-  );
   const [saved, setSaved] = useState(false);
 
   const handleSave = () => {
-    applyDisplaySettings(fontSize, layout);
+    applyDisplaySettings(fontSize);
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   };
@@ -216,13 +204,6 @@ function DisplayPanel() {
     { value: 'medium', label: '보통 (16px)' },
     { value: 'large', label: '크게 (18px)' },
   ];
-
-  const layouts: { value: Layout; label: string; desc: string; icon: React.ReactNode }[] = [
-    { value: 'comfortable', label: '여유 있게', desc: '넓은 간격, 편안한 읽기', icon: <ComfortIcon /> },
-    { value: 'compact', label: '컴팩트', desc: '좁은 간격, 많은 정보', icon: <CompactIcon /> },
-    { value: 'responsive', label: '반응형', desc: '화면 크기에 맞게 자동 조절', icon: <ResponsiveIcon /> },
-  ];
-
   return (
     <Card className="mb-4">
       <h3 className="font-black text-slate-700 mb-4">표시 설정</h3>
@@ -245,31 +226,6 @@ function DisplayPanel() {
           </p>
         </div>
       </div>
-
-      {/* 화면 레이아웃 */}
-      <div className="mb-4">
-        <p className="text-sm font-bold text-slate-600 mb-2">화면 레이아웃</p>
-        <div className="flex flex-col gap-2">
-          {layouts.map(({ value, label, desc, icon }) => (
-            <button key={value} onClick={() => setLayout(value)}
-              className={`flex items-center gap-3 p-3 rounded-xl border-2 transition-all text-left ${layout === value ? 'border-blue-500 bg-blue-50' : 'border-slate-200 bg-white'}`}>
-              <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${layout === value ? 'bg-blue-100 text-blue-600' : 'bg-slate-100 text-slate-500'}`}>
-                {icon}
-              </div>
-              <div>
-                <p className={`text-sm font-bold ${layout === value ? 'text-blue-700' : 'text-slate-700'}`}>{label}</p>
-                <p className="text-xs text-slate-400">{desc}</p>
-              </div>
-              {layout === value && (
-                <svg className="w-5 h-5 text-blue-500 ml-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
-                  <path d="M20 6L9 17l-5-5" />
-                </svg>
-              )}
-            </button>
-          ))}
-        </div>
-      </div>
-
       <button onClick={handleSave}
         className={`w-full h-10 rounded-xl font-bold text-sm transition-colors ${saved ? 'bg-green-500 text-white' : 'bg-blue-600 text-white hover:bg-blue-700'}`}>
         {saved ? '✓ 저장되었습니다!' : '저장'}
@@ -347,9 +303,6 @@ const PeopleIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none
 const BellIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" /></svg>;
 const TextIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M4 6h16M4 12h16M4 18h7" /></svg>;
 const HelpIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><circle cx={12} cy={12} r={10} /><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01" /></svg>;
-const ComfortIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><rect x={3} y={3} width={18} height={18} rx={2} /><path d="M3 9h18M3 15h18" /></svg>;
-const CompactIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M3 6h18M3 10h18M3 14h18M3 18h18" /></svg>;
-const ResponsiveIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><rect x={2} y={3} width={20} height={14} rx={2} /><path d="M8 21h8M12 17v4" /></svg>;
 
 
 
