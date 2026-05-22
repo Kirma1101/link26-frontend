@@ -48,21 +48,19 @@ export default function ChatPage() {
   const file = e.target.files?.[0];
   if (!file) return;
 
-  // 이미지를 Base64로 변환
+  const imageUrl = URL.createObjectURL(file);
   const reader = new FileReader();
   reader.onload = async () => {
     const base64 = (reader.result as string).split(',')[1];
-    const mimeType = file.type;
-
     setMessages(prev => [...prev, {
       id: newId(), isUser: true, time: fmt(),
-      text: `📷 ${file.name} 분석 중...`,
+      text: '📷 ' + file.name + ' 분석 중...',
+      imageUrl,
     }]);
-
     try {
       const { data } = await api.post<{ answer: string }>('/ai/prescription-image', {
         imageBase64: base64,
-        mimeType,
+        mimeType: file.type,
       });
       setMessages(prev => [...prev, {
         id: newId(), isUser: false, time: fmt(),
@@ -162,6 +160,9 @@ function Bubble({ msg }: { msg: ChatMessage }) {
           ? 'bg-[#0B6BFF] text-white rounded-br-sm'
           : 'bg-white border border-slate-100 text-slate-800 rounded-bl-sm'
       )}>
+        {msg.imageUrl && (
+          <img src={msg.imageUrl} alt="업로드 이미지" className="rounded-xl mb-2 max-w-full max-h-48 object-cover" />
+        )}
         <p className="whitespace-pre-wrap leading-relaxed">{msg.text}</p>
         <p className={clsx('text-xs mt-1', isUser ? 'text-blue-200' : 'text-slate-400')}>{msg.time}</p>
       </div>

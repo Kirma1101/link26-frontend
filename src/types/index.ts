@@ -1,5 +1,5 @@
-// src/types/index.ts
-// Flutter link_models.dart, alarm_item.dart, medicine.dart 기반
+﻿// src/types/index.ts
+// Flutter link_models.dart, alarm_item.dart, medicine.dart 湲곕컲
 
 export interface User {
   id: string;
@@ -68,4 +68,7 @@ export interface ChatMessage {
   text: string;
   time: string;
   medicine?: Medication;
+  imageUrl?: string;
 }
+
+
