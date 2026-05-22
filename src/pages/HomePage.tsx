@@ -1,4 +1,5 @@
 ﻿import { useState } from 'react';
+import { t } from '@/i18n';
 import { DrugSearchModal } from '@/components/DrugSearchModal';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -45,7 +46,7 @@ export default function HomePage() {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6 md:mb-8 w-full">
         <div>
           <h1 className="text-3xl md:text-3xl font-black text-slate-800 leading-tight">건강한 하루를 시작하세요</h1>
-          <p className="text-slate-500 mt-1">오늘의 복약 현황을 확인하세요</p>
+          <p className="text-slate-500 mt-1">{t('home_subtitle')}</p>
         </div>
         <div className="relative w-full md:w-80">
           <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
@@ -55,7 +56,7 @@ export default function HomePage() {
             value={search}
             onChange={e => setSearch(e.target.value)}
             onClick={() => setShowDrugSearch(true)}
-            placeholder="약 이름, 성분 검색"
+            placeholder={t('home_search')}
             className="w-full h-10 rounded-xl border border-slate-200 bg-white pl-9 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
           />
         </div>
@@ -63,9 +64,9 @@ export default function HomePage() {
 
       {/* 통계 카드 3개 */}
       <div className="grid grid-cols-2 gap-4 md:gap-6 mb-8 w-full">
-        <StatCard label="오늘 복용" value={`${data?.completedCount ?? 0}/${data?.totalCount ?? 0}`} color="blue" />
-        <StatCard label="등록된 약" value={`${data?.medications.length ?? 0}개`} color="green" />
-        <StatCard label="예정 알람" value={`${pending.length}건`} color="orange" />
+        <StatCard label={t('home_today')} value={`${data?.completedCount ?? 0}/${data?.totalCount ?? 0}`} color="blue" />
+        <StatCard label={t('home_registered')} value={`${data?.medications.length ?? 0}개`} color="green" />
+        <StatCard label={t('home_alarms')} value={`${pending.length}건`} color="orange" />
       </div>
 
       {/* 2컬럼 레이아웃 */}
@@ -75,7 +76,7 @@ export default function HomePage() {
           {/* 오늘의 알람 */}
           {pending.length > 0 && (
             <section>
-              <SectionHeader title="오늘의 알림" action="전체보기" onAction={() => navigate('/alarms')} />
+              <SectionHeader title={t('home_today_alarm')} action={t('home_view_all')} onAction={() => navigate('/alarms')} />
               <div className="flex flex-col gap-3">
                 {pending.map(alarm => (
                   <AlarmCard key={alarm.id} alarm={alarm} onComplete={(id) => completeAlarm.mutate(id)} />
@@ -87,7 +88,7 @@ export default function HomePage() {
           {/* 복용 완료 */}
           {completed.length > 0 && (
             <section>
-              <SectionHeader title="복용 완료" />
+              <SectionHeader title={t('home_completed')} />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {completed.map(alarm => (
                   <CompletedTile key={alarm.id} alarm={alarm} />
@@ -99,15 +100,15 @@ export default function HomePage() {
 
         {/* 우측: 약 목록 (1/3) */}
         <div>
-          <SectionHeader title="내 약 목록" action="+ 추가" onAction={() => setShowAddModal(true)} />
+          <SectionHeader title={t('home_med_list')} action={t('home_add')} onAction={() => setShowAddModal(true)} />
           {medications.length === 0 ? (
             <div className="bg-white rounded-2xl border border-slate-100 p-8 text-center">
-              <p className="text-slate-400 text-sm">등록된 약이 없습니다.</p>
+              <p className="text-slate-400 text-sm">{t('home_no_meds')}</p>
               <button
                 onClick={() => setShowAddModal(true)}
                 className="mt-3 text-sm text-blue-600 font-semibold"
               >
-                + 약 추가하기
+                {t('home_add_med')}
               </button>
             </div>
           ) : (
@@ -242,6 +243,7 @@ function AddMedicineModal({ onClose }: { onClose: () => void }) {
     </div>
   );
 }
+
 
 
 
