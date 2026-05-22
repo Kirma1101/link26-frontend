@@ -1,6 +1,7 @@
 ﻿// src/pages/ChatPage.tsx
 // Flutter ai_chat_screen.dart 의 웹 버전
 import { useState, useRef, useEffect } from 'react';
+import { t } from '@/i18n';
 import { useMutation } from '@tanstack/react-query';
 import { aiApi } from '@/api';
 import { clsx } from 'clsx';
@@ -19,7 +20,7 @@ export default function ChatPage() {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: newId(), isUser: false, time: fmt(),
-      text: '안녕하세요! AI 건강 도우미입니다.\n약 이름을 입력하거나 궁금한 점을 물어보세요.',
+      text: '' + t('chat_welcome') + '',
     },
   ]);
   const [input, setInput] = useState('');
@@ -69,7 +70,7 @@ export default function ChatPage() {
     } catch {
       setMessages(prev => [...prev, {
         id: newId(), isUser: false, time: fmt(),
-        text: '이미지 분석에 실패했습니다. 다시 시도해주세요.',
+        text: t('error'),
       }]);
     }
   };
@@ -87,11 +88,11 @@ export default function ChatPage() {
           </svg>
         </div>
         <div className="flex-1">
-          <p className="font-black text-slate-800 text-sm">AI 건강 도우미</p>
-          <p className="text-xs text-slate-400">약 추천 · 처방전 분석</p>
+          <p className="font-black text-slate-800 text-sm">{t('chat_title')}</p>
+          <p className="text-xs text-slate-400">{t('chat_subtitle')}</p>
         </div>
         <button
-          onClick={() => setMessages([{ id: newId(), isUser: false, time: fmt(), text: '새 대화를 시작합니다.' }])}
+          onClick={() => setMessages([{ id: newId(), isUser: false, time: fmt(), text: t('chat_welcome') }])}
           className="text-xs text-blue-600 font-semibold border border-blue-200 px-3 py-1 rounded-full"
         >
           + 새 대화
@@ -131,7 +132,7 @@ export default function ChatPage() {
             value={input}
             onChange={e => setInput(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), send())}
-            placeholder="약 이름을 입력하세요..."
+            placeholder={t('chat_placeholder')}
             className="flex-1 h-11 rounded-3xl border border-slate-200 bg-white px-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
           />
 
@@ -169,5 +170,7 @@ function Bubble({ msg }: { msg: ChatMessage }) {
     </div>
   );
 }
+
+
 
 

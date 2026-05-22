@@ -1,4 +1,5 @@
 ﻿import { useState } from 'react';
+import { t } from '@/i18n';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { familyApi } from '@/api';
 import { Spinner, Avatar } from '@/components/ui';
@@ -27,8 +28,8 @@ export default function FamilyPage() {
     <div className="py-8 w-full px-4 md:px-8">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-black text-slate-800">가족 계정</h1>
-          <p className="text-slate-500 mt-1">가족 구성원을 관리하세요</p>
+          <h1 className="text-3xl font-black text-slate-800">{t('family_title')}</h1>
+          <p className="text-slate-500 mt-1">{t('family_subtitle')}</p>
         </div>
         <button
           onClick={() => setShowAdd(v => !v)}
@@ -41,12 +42,12 @@ export default function FamilyPage() {
       {/* 추가 폼 */}
       {showAdd && (
         <div className="bg-white rounded-2xl border border-slate-200 p-6 mb-6">
-          <h3 className="font-black text-slate-700 mb-4">새 구성원 추가</h3>
+          <h3 className="font-black text-slate-700 mb-4">{t('family_add').replace('+  ', '')}</h3>
           <div className="grid grid-cols-3 gap-3 mb-4">
             {(['name', 'relation', 'phone'] as const).map(k => (
               <div key={k}>
                 <label className="text-xs font-semibold text-slate-500 mb-1 block">
-                  {{ name: '이름', relation: '관계 (예: 어머니)', phone: '전화번호' }[k]}
+                  {{ name: t('family_name'), relation: t('family_relation'), phone: t('family_phone') }[k]}
                 </label>
                 <input
                   value={form[k]}
@@ -104,3 +105,4 @@ export default function FamilyPage() {
     </div>
   );
 }
+

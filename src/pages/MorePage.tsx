@@ -1,5 +1,6 @@
 ﻿// src/pages/MorePage.tsx
 import { useState } from 'react';
+import { t } from '@/i18n';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { familyApi, settingsApi } from '@/api';
@@ -38,7 +39,7 @@ export default function MorePage() {
         </p>
       </div>
 
-      <h2 className="text-2xl font-black text-slate-800 mb-4">더보기</h2>
+      <h2 className="text-2xl font-black text-slate-800 mb-4">{t('more_title')}</h2>
 
       {/* APK 다운로드 배너 */}
       <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-5 mb-4 flex items-center justify-between shadow-md">
@@ -49,8 +50,8 @@ export default function MorePage() {
             </svg>
           </div>
           <div>
-            <p className="font-black text-white text-sm">link26 앱 다운로드</p>
-            <p className="text-xs text-blue-100">Android APK · 최신 버전</p>
+            <p className="font-black text-white text-sm">{t('more_download')}</p>
+            <p className="text-xs text-blue-100">{t('more_download_sub')}</p>
           </div>
         </div>
         <a href="/link26.apk" download="link26.apk"
@@ -61,12 +62,12 @@ export default function MorePage() {
 
       {/* 메뉴 목록 */}
       <div className="flex flex-col gap-2 mb-4">
-        <MenuItem icon={<PeopleIcon />} title="가족 계정" subtitle="가족 구성원 관리" onTap={() => toggle('family')} active={panel === 'family'} />
-        <MenuItem icon={<BellIcon />} title="알림" subtitle="복약 알림 확인" onTap={() => navigate('/alarms')} active={false} />
-        <MenuItem icon={<BellIcon />} title="알림 설정" subtitle="전화/푸시 알림 설정" onTap={() => toggle('notifications')} active={panel === 'notifications'} />
-        <MenuItem icon={<LanguageIcon />} title="언어 설정" subtitle="한국어 / English" onTap={() => toggle('language')} active={panel === 'language'} />
-        <MenuItem icon={<TextIcon />} title="표시 설정" subtitle="글자 크기, 화면 구성" onTap={() => toggle('display')} active={panel === 'display'} />
-        <MenuItem icon={<HelpIcon />} title="도움말" subtitle="사용 가이드 및 FAQ" onTap={() => toggle('help')} active={panel === 'help'} />
+        <MenuItem icon={<PeopleIcon />} title={t('more_family')} subtitle={t('more_family_sub')} onTap={() => toggle('family')} active={panel === 'family'} />
+        <MenuItem icon={<BellIcon />} title={t('more_alarm')} subtitle={t('more_alarm_sub')} onTap={() => navigate('/alarms')} active={false} />
+        <MenuItem icon={<BellIcon />} title={t('more_notification')} subtitle={t('more_notification_sub')} onTap={() => toggle('notifications')} active={panel === 'notifications'} />
+        <MenuItem icon={<LanguageIcon />} title={t('more_language')} subtitle={t('more_language_sub')} onTap={() => toggle('language')} active={panel === 'language'} />
+        <MenuItem icon={<TextIcon />} title={t('more_display')} subtitle={t('more_display_sub')} onTap={() => toggle('display')} active={panel === 'display'} />
+        <MenuItem icon={<HelpIcon />} title={t('more_help')} subtitle={t('more_help_sub')} onTap={() => toggle('help')} active={panel === 'help'} />
       </div>
 
       {panel === 'family' && <FamilyPanel />}
@@ -347,6 +348,7 @@ const BellIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" 
 const TextIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M4 6h16M4 12h16M4 18h7" /></svg>;
 const HelpIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><circle cx={12} cy={12} r={10} /><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01" /></svg>;
 const LanguageIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><circle cx={12} cy={12} r={10}/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>;
+
 
 
 
