@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { aiApi } from '@/api';
 import { clsx } from 'clsx';
+import { api } from '@/api/client';
 import type { ChatMessage } from '@/types';
 
 let msgId = 0;
@@ -44,23 +45,39 @@ export default function ChatPage() {
   };
 
   const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setMessages(prev => [
-      ...prev,
-      { id: newId(), isUser: true, time: fmt(), text: '사진을 선택했습니다.' },
-    ]);
-    // 처방전 분석 (텍스트 추출은 추후 OCR API 연결)
-    const { data } = await aiApi.prescription('분석 요청');
-    setMessages(prev => [
-      ...prev,
-      {
+  const file = e.target.files?.[0];
+  if (!file) return;
+
+  // 이미지를 Base64로 변환
+  const reader = new FileReader();
+  reader.onload = async () => {
+    const base64 = (reader.result as string).split(',')[1];
+    const mimeType = file.type;
+
+    setMessages(prev => [...prev, {
+      id: newId(), isUser: true, time: fmt(),
+      text: `📷 ${file.name} 분석 중...`,
+    }]);
+
+    try {
+      const { data } = await api.post<{ answer: string }>('/ai/prescription-image', {
+        imageBase64: base64,
+        mimeType,
+      });
+      setMessages(prev => [...prev, {
         id: newId(), isUser: false, time: fmt(),
-        text: `${data.productName}\n\n${data.recommendation}\n${data.reason}`,
-      },
-    ]);
-    e.target.value = '';
+        text: data.answer,
+      }]);
+    } catch {
+      setMessages(prev => [...prev, {
+        id: newId(), isUser: false, time: fmt(),
+        text: '이미지 분석에 실패했습니다. 다시 시도해주세요.',
+      }]);
+    }
   };
+  reader.readAsDataURL(file);
+  e.target.value = '';
+};
 
   return (
     <div className="flex flex-col h-[calc(100vh-5rem)] w-full">
