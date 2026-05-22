@@ -309,9 +309,9 @@ function LanguagePanel() {
   const [saved, setSaved] = useState(false);
 
   const handleSave = () => {
-    localStorage.setItem('app_language', lang);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+  localStorage.setItem('app_language', lang);
+  setSaved(true);
+  setTimeout(() => { window.location.reload(); }, 1000);
   };
 
   return (
@@ -347,6 +347,7 @@ const BellIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" 
 const TextIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M4 6h16M4 12h16M4 18h7" /></svg>;
 const HelpIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><circle cx={12} cy={12} r={10} /><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01" /></svg>;
 const LanguageIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><circle cx={12} cy={12} r={10}/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>;
+
 
 
 
