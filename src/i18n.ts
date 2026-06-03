@@ -39,7 +39,7 @@ export const translations = {
     chat_new: '+ 새 대화',
     chat_placeholder: '약 이름을 입력하세요...',
     chat_loading: 'AI 분석 중...',
-    chat_welcome: '안녕하세요! AI 건강 도우미입니다.\n약 이름을 입력하거나 궁금한 점을 물어보세요.',
+    chat_welcome: '안녕하세요! AI 건강 도우미입니다.\n약 이름을 입력하거나 궁금한 점을 물어보세요.\n\n📎 이미지 첨부 시 처방전 사진만 업로드해 주세요.',
 
     // 가족 계정
     family_title: '가족 계정',
