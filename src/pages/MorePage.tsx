@@ -7,7 +7,7 @@ import { familyApi, settingsApi } from '@/api';
 import { Card, Spinner, Avatar } from '@/components/ui';
 import type { FamilyMember, NotificationSettings } from '@/types';
 
-type Panel = 'none' | 'family' | 'notifications' | 'display' | 'help' | 'language';
+type Panel = 'none' | 'family' | 'notifications' | 'display' | 'help' | 'language' | 'install';
 type FontSize = 'small' | 'medium' | 'large';
 
 function applyDisplaySettings(fontSize: FontSize) {
@@ -67,6 +67,7 @@ export default function MorePage() {
         <MenuItem icon={<BellIcon />} title={t('more_notification')} subtitle={t('more_notification_sub')} onTap={() => toggle('notifications')} active={panel === 'notifications'} />
         <MenuItem icon={<LanguageIcon />} title={t('more_language')} subtitle={t('more_language_sub')} onTap={() => toggle('language')} active={panel === 'language'} />
         <MenuItem icon={<TextIcon />} title={t('more_display')} subtitle={t('more_display_sub')} onTap={() => toggle('display')} active={panel === 'display'} />
+        <MenuItem icon={<DownloadGuideIcon />} title="앱 설치 가이드" subtitle="Android APK 설치 방법" onTap={() => toggle('install')} active={panel === 'install'} />
         <MenuItem icon={<HelpIcon />} title={t('more_help')} subtitle={t('more_help_sub')} onTap={() => toggle('help')} active={panel === 'help'} />
       </div>
 
@@ -74,6 +75,7 @@ export default function MorePage() {
       {panel === 'notifications' && <NotificationsPanel />}
       {panel === 'display' && <DisplayPanel />}
       {panel === 'language' && <LanguagePanel />}
+      {panel === 'install' && <InstallGuidePanel />}
       {panel === 'help' && <HelpPanel />}
     </div>
   );
@@ -238,6 +240,63 @@ function DisplayPanel() {
   );
 }
 
+
+function InstallGuidePanel() {
+  const steps = [
+    {
+      num: '1',
+      title: 'APK 파일 다운로드',
+      desc: '위의 "다운로드" 버튼을 눌러 link26.apk 파일을 다운로드하세요.',
+      icon: '⬇️',
+    },
+    {
+      num: '2',
+      title: '알 수 없는 앱 설치 허용',
+      desc: '설정 → 보안 → "알 수 없는 앱 설치" 또는 "출처를 알 수 없는 앱"을 허용으로 설정하세요.',
+      icon: '⚙️',
+    },
+    {
+      num: '3',
+      title: 'APK 파일 실행',
+      desc: '다운로드된 link26.apk 파일을 열고 "설치" 버튼을 누르세요.',
+      icon: '📲',
+    },
+    {
+      num: '4',
+      title: '설치 완료',
+      desc: '설치가 완료되면 앱을 실행하고 회원가입 또는 로그인하세요.',
+      icon: '✅',
+    },
+  ];
+
+  return (
+    <Card className="mb-4">
+      <h3 className="font-black text-slate-700 mb-1">앱 설치 가이드</h3>
+      <p className="text-xs text-slate-400 mb-4">Android 기기에 APK를 설치하는 방법</p>
+      <div className="flex flex-col gap-3">
+        {steps.map((step) => (
+          <div key={step.num} className="flex gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+            <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-black text-sm flex-shrink-0">
+              {step.num}
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center gap-1 mb-0.5">
+                <span>{step.icon}</span>
+                <p className="text-sm font-black text-slate-800">{step.title}</p>
+              </div>
+              <p className="text-xs text-slate-500 leading-relaxed">{step.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-4 p-3 rounded-xl bg-blue-50 border border-blue-100">
+        <p className="text-xs text-blue-700 font-semibold">💡 문제가 있으신가요?</p>
+        <p className="text-xs text-blue-600 mt-0.5">설치 중 문제가 발생하면 도움말 → FAQ를 확인하거나 link26.health@gmail.com으로 문의하세요.</p>
+      </div>
+    </Card>
+  );
+}
+
 function HelpPanel() {
   const [tab, setTab] = useState<'faq' | 'privacy'>('faq');
 
@@ -347,12 +406,5 @@ const PeopleIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none
 const BellIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" /></svg>;
 const TextIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M4 6h16M4 12h16M4 18h7" /></svg>;
 const HelpIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><circle cx={12} cy={12} r={10} /><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01" /></svg>;
+const DownloadGuideIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M12 5v14M5 12l7 7 7-7" /><rect x="3" y="19" width="18" height="2" rx="1" /></svg>;
 const LanguageIcon = () => <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><circle cx={12} cy={12} r={10}/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>;
-
-
-
-
-
-
-
-
